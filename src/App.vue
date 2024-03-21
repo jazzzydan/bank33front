@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Kodu</router-link> |
     <router-link to="/atms">Pangaautomaadid</router-link> |
-
+    <router-link to="/login">Sisse logimine</router-link> |
   </nav>
   <router-view/>
 </template>
