@@ -44,7 +44,7 @@ export default {
     login() {
 
       if (this.allFieldsWithCorrectInput()) {
-        // sendLoginRequest()
+        this.sendLoginRequest()
       } else {
         this.displayAllFieldsRequiredAlert();
       }
@@ -56,6 +56,19 @@ export default {
       return this.username.length > 0 && this.password.length > 0;
     },
 
+    sendLoginRequest() {
+      this.$http.get('/login', {
+        params: {
+          username: this.username,
+          password: this.password
+        }
+      }).then(response =>  {
+        response.data
+
+        alert('userId: ' + response.data.roleName)
+      })
+    },
+
     displayAllFieldsRequiredAlert() {
       this.message = "Täida kõik väljad";
       setTimeout(this.resetMessage, 2000);
@@ -64,11 +77,6 @@ export default {
     resetMessage() {
       this.message = ''
     },
-
-
-
-
-
 
 
   }
