@@ -12,7 +12,9 @@
             <label for="password" class="form-label">Parool</label>
             <input v-model="password" type="password" class="form-control" id="password">
           </div>
-          <button @click="login" type="submit" class="btn btn-primary">Logi sisse</button>
+          <div class="d-grid mx-auto col-6 mt-4">
+            <button @click="login" type="submit" class="btn btn-primary text-center">Logi sisse</button>
+          </div>
         </form>
       </div>
     </div>
