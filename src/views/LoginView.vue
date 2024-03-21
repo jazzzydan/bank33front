@@ -39,17 +39,25 @@ export default {
   },
   methods: {
 
+
+
     login() {
-
-
-
+      this.resetMessage();
 
       if (this.username.length === 0 || this.password.length === 0 ) {
         this.message = "Täida kõik väljad"
+        setTimeout(this.resetMessage, 2000)
       }
-
-
     },
+
+    resetMessage() {
+      this.message = ''
+    },
+
+
+
+
+
 
   }
 }
