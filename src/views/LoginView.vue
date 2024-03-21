@@ -39,19 +39,21 @@ export default {
   },
   methods: {
 
-    allFieldsWithCorrectInput() {
-      return this.username.length > 0 && this.password.length > 0;
-    },
+
 
     login() {
 
       if (this.allFieldsWithCorrectInput()) {
-       // sendLoginRequest()
+        // sendLoginRequest()
       } else {
         this.displayAllFieldsRequiredAlert();
       }
 
-      
+
+    },
+
+    allFieldsWithCorrectInput() {
+      return this.username.length > 0 && this.password.length > 0;
     },
 
     displayAllFieldsRequiredAlert() {
