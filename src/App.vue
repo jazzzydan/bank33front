@@ -1,6 +1,8 @@
 <template>
   <nav>
     <router-link to="/">Kodu</router-link> |
+    <router-link to="/atms">Pangaautomaadid</router-link> |
+
   </nav>
   <router-view/>
 </template>
@@ -27,3 +29,5 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script setup>
+</script>
