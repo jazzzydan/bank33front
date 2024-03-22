@@ -1,11 +1,36 @@
 <template>
   <nav>
-    <router-link to="/">Kodu</router-link> |
-    <router-link to="/atms">Pangaautomaadid</router-link> |
-    <router-link to="/login">Sisse logimine</router-link> |
+    <router-link to="/">Kodu</router-link>
+    |
+    <router-link to="/atms">Pangaautomaadid</router-link>
+    |
+    <template v-if="isLoggedIn">
+      <router-link to="/log-out">Logi välja</router-link>
+    </template>
+    <template v-else>
+      <router-link to="/login">Sisse logimine</router-link>
+    </template>
   </nav>
-  <router-view/>
+
+  <router-view @event-update-nav-menu="updateNavMenu"/>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  },
+  methods: {
+    updateNavMenu() {
+      this.isLoggedIn = true
+    },
+  }
+}
+</script>
+
 
 <style>
 #app {
@@ -29,5 +54,3 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
-<script setup>
-</script>

@@ -69,11 +69,12 @@ export default {
           username: this.username,
           password: this.password
         },
-        headers: {Prefer: 'code=403, example=error', Accept: 'application/json'}
       }).then(response => {
-
         this.loginResponse = response.data
         this.saveLoginResponseInfoToSessionStorage();
+        // kas siia
+        this.$emit('event-update-nav-menu')
+        router.push({name: 'atmsRoute'})
 
       }).catch(error => {
         this.errorResponse = error.response.data
