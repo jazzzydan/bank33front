@@ -66,12 +66,15 @@ export default {
     },
 
 
-    incorrectCredentials(statusCode) {
-      return statusCode === 403 && this.errorResponse.errorCode === 111;
+    handleIncorrectCredentialsResponse(error) {
+      if (this.incorrectCredentials(error.response.status)) {
+        this.displayIncorrectCredentialsAlert()
+      }
     },
 
 
     sendLoginRequest() {
+
       this.$http.get('/login', {
         params: {
           username: this.username,
@@ -82,17 +85,17 @@ export default {
         this.loginResponse = response.data
         this.saveLoginResponseInfoToSessionStorage();
 
-
       }).catch(error => {
-        this.statusCode = error.response.status
         this.errorResponse = error.response.data
-
-        if (this.incorrectCredentials(error.response.status)) {
-          this.displayIncorrectCredentialsAlert()
-        }
+        this.handleIncorrectCredentialsResponse(error);
 
       })
     },
+
+    incorrectCredentials(statusCode) {
+      return statusCode === 403 && this.errorResponse.errorCode === 111;
+    },
+
 
     saveLoginResponseInfoToSessionStorage() {
       sessionStorage.setItem('userId', this.loginResponse.userId)
