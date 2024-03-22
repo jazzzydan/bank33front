@@ -38,6 +38,10 @@ export default {
       loginResponse: {
         userId: 0,
         roleName: ''
+      },
+      errorResponse: {
+        message: '',
+        errorCode: 0
       }
 
     }
@@ -70,6 +74,10 @@ export default {
       }).then(response => {
         this.loginResponse = response.data
         this.saveLoginResponseInfoToSessionStorage();
+      }).catch(error => {
+
+
+
       })
     },
 
