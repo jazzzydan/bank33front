@@ -39,9 +39,10 @@ export default {
         userId: 0,
         roleName: ''
       },
+
       errorResponse: {
         message: '',
-        errorCode: 0
+        errorCode: 0,
       }
 
     }
@@ -65,6 +66,11 @@ export default {
     },
 
 
+    incorrectCredentials(statusCode) {
+      return statusCode === 403 && this.errorResponse.errorCode === 111;
+    },
+
+
     sendLoginRequest() {
       this.$http.get('/login', {
         params: {
@@ -72,11 +78,18 @@ export default {
           password: this.password
         }
       }).then(response => {
+
         this.loginResponse = response.data
         this.saveLoginResponseInfoToSessionStorage();
+
+
       }).catch(error => {
+        this.statusCode = error.response.status
+        this.errorResponse = error.response.data
 
-
+        if (this.incorrectCredentials(error.response.status)) {
+          this.displayIncorrectCredentialsAlert()
+        }
 
       })
     },
@@ -86,6 +99,11 @@ export default {
       sessionStorage.setItem('roleName', this.loginResponse.roleName)
     },
 
+
+    displayIncorrectCredentialsAlert() {
+      this.message = this.errorResponse.message;
+      setTimeout(this.resetMessage, 2000);
+    },
 
     displayAllFieldsRequiredAlert() {
       this.message = "Täida kõik väljad";
