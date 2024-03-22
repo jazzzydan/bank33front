@@ -10,6 +10,20 @@
 
 <script>
 export default {
-  name: 'AtmsView'
+  name: 'AtmsView',
+  data() {
+    return {
+      userId: sessionStorage.getItem('userId'),
+      roleName: sessionStorage.getItem('roleName')
+    }
+  },
+  methods: {
+    proofOfConcept() {
+      alert('userId: ' + this.userId + ', roleName: ' + this.roleName)
+    },
+  },
+  mounted() {
+    this.proofOfConcept()
+  }
 }
 </script>

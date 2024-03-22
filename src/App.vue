@@ -24,9 +24,15 @@ export default {
     }
   },
   methods: {
+
     updateNavMenu() {
-      this.isLoggedIn = true
+      let userId = sessionStorage.getItem('userId')
+      this.isLoggedIn = userId !== null;
     },
+
+  },
+  mounted() {
+    this.updateNavMenu()
   }
 }
 </script>
