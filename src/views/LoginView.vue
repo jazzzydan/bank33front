@@ -6,17 +6,17 @@
         <AlertDanger :message="message"/>
 
 
-          <div class="mb-3">
-            <label for="username" class="form-label">Kasutajanimi</label>
-            <input v-model="username" type="text" class="form-control" id="username">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Parool</label>
-            <input v-model="password" type="password" class="form-control" id="password">
-          </div>
-          <div class="d-grid mx-auto col-6 mt-4">
-            <button @click="login" type="submit" class="btn btn-primary text-center">Logi sisse</button>
-          </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Kasutajanimi</label>
+          <input v-model="username" type="text" class="form-control" id="username">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Parool</label>
+          <input v-model="password" type="password" class="form-control" id="password">
+        </div>
+        <div class="d-grid mx-auto col-6 mt-4">
+          <button @click="login" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
+        </div>
 
       </div>
     </div>
@@ -34,11 +34,15 @@ export default {
     return {
       username: '',
       password: '',
-      message: ''
+      message: '',
+      loginResponse: {
+        userId: 0,
+        roleName: ''
+      }
+
     }
   },
   methods: {
-
 
 
     login() {
@@ -56,18 +60,24 @@ export default {
       return this.username.length > 0 && this.password.length > 0;
     },
 
+
     sendLoginRequest() {
       this.$http.get('/login', {
         params: {
           username: this.username,
           password: this.password
         }
-      }).then(response =>  {
-        response.data
-
-        alert('userId: ' + response.data.roleName)
+      }).then(response => {
+        this.loginResponse = response.data
+        this.saveLoginResponseInfoToSessionStorage();
       })
     },
+
+    saveLoginResponseInfoToSessionStorage() {
+      sessionStorage.setItem('userId', this.loginResponse.userId)
+      sessionStorage.setItem('roleName', this.loginResponse.roleName)
+    },
+
 
     displayAllFieldsRequiredAlert() {
       this.message = "Täida kõik väljad";
