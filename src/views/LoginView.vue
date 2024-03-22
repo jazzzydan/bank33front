@@ -26,6 +26,7 @@
 
 <script>
 import AlertDanger from "@/components/AlertDanger.vue";
+import router from "@/router";
 
 export default {
   name: 'LoginView',
@@ -49,29 +50,17 @@ export default {
   },
   methods: {
 
-
     login() {
-
       if (this.allFieldsWithCorrectInput()) {
         this.sendLoginRequest()
       } else {
         this.displayAllFieldsRequiredAlert();
       }
-
-
     },
 
     allFieldsWithCorrectInput() {
       return this.username.length > 0 && this.password.length > 0;
     },
-
-
-    handleIncorrectCredentialsResponse(statusCode) {
-      if (this.incorrectCredentials(statusCode)) {
-        this.displayIncorrectCredentialsAlert()
-      }
-    },
-
 
     sendLoginRequest() {
 
@@ -79,7 +68,8 @@ export default {
         params: {
           username: this.username,
           password: this.password
-        }
+        },
+        headers: {Prefer: 'code=403, example=error', Accept: 'application/json'}
       }).then(response => {
 
         this.loginResponse = response.data
@@ -87,13 +77,13 @@ export default {
 
       }).catch(error => {
         this.errorResponse = error.response.data
-        this.handleIncorrectCredentialsResponse(error);
-
+        this.handleError(error.response.status);
       })
     },
 
-    incorrectCredentials(statusCode) {
-      return statusCode === 403 && this.errorResponse.errorCode === 111;
+    displayAllFieldsRequiredAlert() {
+      this.message = "Täida kõik väljad";
+      setTimeout(this.resetMessage, 2000);
     },
 
 
@@ -102,21 +92,40 @@ export default {
       sessionStorage.setItem('roleName', this.loginResponse.roleName)
     },
 
+    handleError(statusCode) {
+      this.handleIncorrectCredentialsError(statusCode);
+      this.handleSomethingWentWrongError();
+    },
+
+    handleSomethingWentWrongError: function () {
+      if (111 !== this.errorResponse.errorCode) {
+        router.push({name: 'errorRoute'})
+      }
+    },
+
+
+
+    handleIncorrectCredentialsError(statusCode) {
+      if (this.incorrectCredentials(statusCode)) {
+        this.displayIncorrectCredentialsAlert()
+      }
+    },
+
+
+    incorrectCredentials(statusCode) {
+      return statusCode === 403 && this.errorResponse.errorCode === 111;
+    },
+
 
     displayIncorrectCredentialsAlert() {
       this.message = this.errorResponse.message;
       setTimeout(this.resetMessage, 2000);
     },
 
-    displayAllFieldsRequiredAlert() {
-      this.message = "Täida kõik väljad";
-      setTimeout(this.resetMessage, 2000);
-    },
 
     resetMessage() {
       this.message = ''
     },
-
 
   }
 }
