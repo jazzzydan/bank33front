@@ -66,8 +66,8 @@ export default {
     },
 
 
-    handleIncorrectCredentialsResponse(error) {
-      if (this.incorrectCredentials(error.response.status)) {
+    handleIncorrectCredentialsResponse(statusCode) {
+      if (this.incorrectCredentials(statusCode)) {
         this.displayIncorrectCredentialsAlert()
       }
     },
