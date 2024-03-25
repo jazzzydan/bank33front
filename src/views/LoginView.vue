@@ -14,7 +14,7 @@
           <label for="password" class="form-label">Parool</label>
           <input v-model="password" type="password" class="form-control" id="password">
         </div>
-        <div class="d-grid mx-auto col-6 mt-4">
+        <div class="d-grid mx-auto col-6">
           <button @click="login" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
         </div>
 
@@ -27,6 +27,7 @@
 <script>
 import AlertDanger from "@/components/AlertDanger.vue";
 import router from "@/router";
+
 
 export default {
   name: 'LoginView',
@@ -62,6 +63,7 @@ export default {
       return this.username.length > 0 && this.password.length > 0;
     },
 
+
     sendLoginRequest() {
 
       this.$http.get('/login', {
@@ -71,15 +73,17 @@ export default {
         },
       }).then(response => {
         this.loginResponse = response.data
-        this.saveLoginResponseInfoToSessionStorage();
-        // kas siia
-        this.$emit('event-update-nav-menu')
-        router.push({name: 'atmsRoute'})
-
+        this.handleLoginRequestResponse();
       }).catch(error => {
         this.errorResponse = error.response.data
         this.handleError(error.response.status);
       })
+    },
+
+    handleLoginRequestResponse: function () {
+      this.saveLoginResponseInfoToSessionStorage();
+      this.$emit('event-update-nav-menu')
+      router.push({name: 'atmsRoute'})
     },
 
     displayAllFieldsRequiredAlert() {
