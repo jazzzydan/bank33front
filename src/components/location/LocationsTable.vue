@@ -12,13 +12,16 @@
       <td>{{ atm.cityName }}</td>
       <td>{{ atm.locationName }}</td>
       <td>
-        <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">{{ transactionType.transactionTypeName }}</p>
+        <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">
+          {{ transactionType.transactionTypeName }}</p>
       </td>
     </tr>
     </tbody>
   </table>
 </template>
 <script>
+import router from "@/router";
+
 export default {
   name: 'LocationsTable',
   data() {
@@ -44,10 +47,29 @@ export default {
   methods: {
 
     sendGetAtmLocationsRequest() {
+
+      let prefer = this.selectedCityId
+      switch (prefer) {
+        case 0:
+          prefer = 'code=200, example=0'
+          break
+
+        case 2:
+          prefer = 'code=200, example=2'
+          break
+        case 3:
+          prefer = 'code=200, example=3'
+          break
+        case 1:
+          prefer = 'code=404, example=1'
+          break
+      }
+
       this.$http.get("/atm/locations", {
             params: {
               cityId: this.selectedCityId
-            }
+            },
+            headers: {Prefer: prefer, Accept: 'application/json'}
           }
       ).then(response => {
         this.atmLocations = response.data
