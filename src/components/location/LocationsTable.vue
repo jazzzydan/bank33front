@@ -39,8 +39,12 @@ export default {
             }
           ]
         }
-      ]
+      ],
 
+      errorResponse: {
+        message: '',
+        errorCode: 0
+      }
 
     }
   },
@@ -74,8 +78,22 @@ export default {
       ).then(response => {
         this.atmLocations = response.data
       }).catch(error => {
-        const errorResponseJSON = error.response.data
+        this.errorResponse = error.response.data
+        this.handleErrorResponse(error.response.status)
       })
+    },
+
+    handleErrorResponse(statusCode) {
+
+      if (statusCode === 404 && this.errorResponse.errorCode) {
+        this.$parent.$data.message = this.errorResponse.message;
+        setTimeout(this.resetErrorResponseMessage, 2000)
+      }
+
+    },
+
+    resetErrorResponseMessage() {
+      this.$parent.$data.message = ''
     },
 
 

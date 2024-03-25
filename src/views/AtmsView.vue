@@ -1,7 +1,8 @@
 <template>
   <div class="container text-center">
-    <div class="row">
-      <div class="col">
+    <div class="row justify-content-center">
+      <div class="col col-6">
+        <AlertDanger :message="message"/>
         <h1>Pangaautomaadid</h1>
       </div>
     </div>
@@ -19,14 +20,16 @@
 <script>
 import CitiesDropdown from "@/components/city/CitiesDropdown.vue";
 import LocationsTable from "@/components/location/LocationsTable.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
   name: 'AtmsView',
-  components: {LocationsTable, CitiesDropdown},
+  components: {AlertDanger, LocationsTable, CitiesDropdown},
   data() {
     return {
       userId: sessionStorage.getItem('userId'),
-      roleName: sessionStorage.getItem('roleName')
+      roleName: sessionStorage.getItem('roleName'),
+      message: ''
     }
   },
   methods: {
