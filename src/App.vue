@@ -5,7 +5,7 @@
     <router-link to="/atms">Pangaautomaadid</router-link>
     |
     <template v-if="isLoggedIn">
-      <router-link to="/log-out">Logi välja</router-link>
+      <a href="#" @click="executeLogOut">Logi välja</a>
     </template>
     <template v-else>
       <router-link to="/login">Sisse logimine</router-link>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: 'App',
   data() {
@@ -28,6 +30,12 @@ export default {
     updateNavMenu() {
       let userId = sessionStorage.getItem('userId')
       this.isLoggedIn = userId !== null;
+    },
+
+    executeLogOut() {
+      sessionStorage.clear()
+      this.updateNavMenu()
+      router.push({name: 'homeRoute'})
     },
 
   },

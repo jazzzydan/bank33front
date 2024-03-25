@@ -2,10 +2,7 @@
   <div class="container text-start">
     <div class="row justify-content-center">
       <div class="col col-3">
-
         <AlertDanger :message="message"/>
-
-
         <div class="mb-3">
           <label for="username" class="form-label">Kasutajanimi</label>
           <input v-model="username" type="text" class="form-control" id="username">
@@ -17,7 +14,6 @@
         <div class="d-grid mx-auto col-6">
           <button @click="login" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
         </div>
-
       </div>
     </div>
   </div>
@@ -41,10 +37,9 @@ export default {
         userId: 0,
         roleName: ''
       },
-
       errorResponse: {
         message: '',
-        errorCode: 0,
+        errorCode: 0
       }
 
     }
@@ -63,24 +58,23 @@ export default {
       return this.username.length > 0 && this.password.length > 0;
     },
 
-
     sendLoginRequest() {
-
       this.$http.get('/login', {
-        params: {
-          username: this.username,
-          password: this.password
-        },
-      }).then(response => {
+            params: {
+              username: this.username,
+              password: this.password
+            }
+          }
+      ).then(response => {
         this.loginResponse = response.data
-        this.handleLoginRequestResponse();
+        this.handleLoginRequestResponse()
       }).catch(error => {
         this.errorResponse = error.response.data
-        this.handleError(error.response.status);
+        this.handleError(error.response.status)
       })
     },
 
-    handleLoginRequestResponse: function () {
+    handleLoginRequestResponse() {
       this.saveLoginResponseInfoToSessionStorage();
       this.$emit('event-update-nav-menu')
       router.push({name: 'atmsRoute'})
@@ -90,7 +84,6 @@ export default {
       this.message = "Täida kõik väljad";
       setTimeout(this.resetMessage, 2000);
     },
-
 
     saveLoginResponseInfoToSessionStorage() {
       sessionStorage.setItem('userId', this.loginResponse.userId)
@@ -108,25 +101,20 @@ export default {
       }
     },
 
-
-
     handleIncorrectCredentialsError(statusCode) {
       if (this.incorrectCredentials(statusCode)) {
         this.displayIncorrectCredentialsAlert()
       }
     },
 
-
     incorrectCredentials(statusCode) {
       return statusCode === 403 && this.errorResponse.errorCode === 111;
     },
-
 
     displayIncorrectCredentialsAlert() {
       this.message = this.errorResponse.message;
       setTimeout(this.resetMessage, 2000);
     },
-
 
     resetMessage() {
       this.message = ''
