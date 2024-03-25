@@ -8,13 +8,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Tallinn</td>
-      <td>Mustamäe Prisma</td>
+    <tr v-for="atm in atmLocations" :key="atm.locationId">
+      <td>{{ atm.cityName }}</td>
+      <td>{{ atm.locationName }}</td>
       <td>
-        <p>Sularaha sisse</p>
-        <p>Sularaha välja</p>
-        <p>Välja</p>
+        <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">{{ transactionType.transactionTypeName }}</p>
       </td>
     </tr>
     </tbody>
@@ -23,7 +21,7 @@
 <script>
 export default {
   name: 'LocationsTable',
-  data(){
+  data() {
     return {
       selectedCityId: 0,
 
@@ -52,17 +50,16 @@ export default {
             }
           }
       ).then(response => {
-        const responseJSON = response.data
+        this.atmLocations = response.data
       }).catch(error => {
         const errorResponseJSON = error.response.data
       })
     },
 
 
-
   },
   beforeMount() {
-
+    this.sendGetAtmLocationsRequest()
   }
 }
 </script>
