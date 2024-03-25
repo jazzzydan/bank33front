@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col col-2">
-        <CitiesDropdown @event-execute-poc="proofOfConcept"/>
+        <CitiesDropdown @event-selected-city-change="executeProofOfConceptAlert"/>
       </div>
 
     </div>
@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    proofOfConcept(selectedCityId) {
+    executeProofOfConceptAlert(selectedCityId) {
       alert('userId: ' + this.userId + ', roleName: ' + this.roleName + ', cityId: ' + selectedCityId)
     },
   },
