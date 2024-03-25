@@ -7,10 +7,10 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-2">
-        <CitiesDropdown @event-selected-city-change="executeProofOfConceptAlert"/>
+        <CitiesDropdown @event-selected-city-change="updateLocationsTable"/>
       </div>
       <div class="col col-6">
-        <LocationsTable/>
+        <LocationsTable ref="locationsTableRef"/>
       </div>
     </div>
   </div>
@@ -30,8 +30,9 @@ export default {
     }
   },
   methods: {
-    executeProofOfConceptAlert(selectedCityId) {
-      alert('userId: ' + this.userId + ', roleName: ' + this.roleName + ', cityId: ' + selectedCityId)
+    updateLocationsTable(selectedCityId) {
+      this.$refs.locationsTableRef.selectedCityId = selectedCityId
+      this.$refs.locationsTableRef.sendGetAtmLocationsRequest()
     },
   },
   mounted() {
