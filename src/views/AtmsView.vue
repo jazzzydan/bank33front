@@ -5,12 +5,21 @@
         <h1>Pangaautomaadid</h1>
       </div>
     </div>
+    <div class="row">
+      <div class="col col-2">
+        <CitiesDropdown @event-execute-poc="proofOfConcept"/>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
+import CitiesDropdown from "@/components/city/CitiesDropdown.vue";
+
 export default {
   name: 'AtmsView',
+  components: {CitiesDropdown},
   data() {
     return {
       userId: sessionStorage.getItem('userId'),
@@ -18,12 +27,12 @@ export default {
     }
   },
   methods: {
-    proofOfConcept() {
-      alert('userId: ' + this.userId + ', roleName: ' + this.roleName)
+    proofOfConcept(selectedCityId) {
+      alert('userId: ' + this.userId + ', roleName: ' + this.roleName + ', cityId: ' + selectedCityId)
     },
   },
   mounted() {
-    this.proofOfConcept()
+    // this.proofOfConcept()
   }
 }
 </script>
