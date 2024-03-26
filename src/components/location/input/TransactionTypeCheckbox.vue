@@ -1,9 +1,10 @@
 <template>
   <div class="mb-3">
-    <div class="form-check text-start">
-      <input class="form-check-input" type="checkbox" id="transactionTypeId1">
-      <label class="form-check-label" for="transactionTypeId1">
-        sularaha sisse
+    <div v-for="transactionType in transactionTypes" :key="transactionType.transactionTypeId"
+         class="form-check text-start">
+      <input v-model="transactionType.isAvailable" class="form-check-input" type="checkbox" :id="'transactionTypeId' + transactionType.transactionTypeId">
+      <label class="form-check-label" :for="'transactionTypeId' + transactionType.transactionTypeId">
+        {{ transactionType.transactionTypeName }}
       </label>
     </div>
   </div>
@@ -13,7 +14,7 @@ import router from "@/router";
 
 export default {
   name: 'TransactionTypeCheckbox',
-  data(){
+  data() {
     return {
       transactionTypes: [
         {
