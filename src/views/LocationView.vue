@@ -12,42 +12,7 @@
         <CitiesDropdown/>
       </div>
       <div class="col col-3">
-        <!--   Asukoht  -->
-        <div class="input-group mb-3">
-          <span class="input-group-text">Asukoht</span>
-          <input type="text" class="form-control">
-        </div>
-
-        <!--   Automaatide arv     -->
-        <div class="input-group mb-3">
-          <span class="input-group-text">Automaatide arv</span>
-          <input type="number" class="form-control" min="1">
-        </div>
-
-        <!--   CHECKBOXID     -->
-        <div class="mb-3">
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" id="transactionTypeId1">
-            <label class="form-check-label" for="transactionTypeId1">
-              sularaha sisse
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" id="transactionTypeId2">
-            <label class="form-check-label" for="transactionTypeId2">
-              sularaha välja
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" id="transactionTypeId2">
-            <label class="form-check-label" for="transactionTypeId2">
-              maksed
-            </label>
-          </div>
-        </div>
-
-        <!--   Image input     -->
-        <ImageInput/>
+        <LocationDetailsInput/>
       </div>
       <!--   atm image   -->
       <div class="col col-2">
@@ -55,9 +20,9 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col col-2">
-        <button type="button" class="btn btn-outline-secondary me-3">Tagasi</button>
-        <button type="button" class="btn btn-outline-success">Lisa</button>
+      <div class="col col-2 text-nowrap">
+        <button type="button" class="btn btn-outline-secondary m-1">Tagasi</button>
+        <button type="button" class="btn btn-outline-success m-1">Lisa</button>
       </div>
     </div>
   </div>
@@ -67,11 +32,11 @@
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import CitiesDropdown from "@/components/city/CitiesDropdown.vue";
-import ImageInput from "@/components/image/ImageInput.vue";
+import LocationDetailsInput from "@/components/location/input/LocationDetailsInput.vue";
 
 export default {
   name: 'LocationView',
-  components: {ImageInput, CitiesDropdown, AlertSuccess, AlertDanger}
+  components: {LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger}
 }
 </script>
 
