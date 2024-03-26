@@ -12,7 +12,7 @@
         <CitiesDropdown/>
       </div>
       <div class="col col-3">
-        <LocationDetailsInput/>
+        <LocationDetailsInput @event-new-image-file-selected="setImageData"/>
       </div>
       <!--   atm image   -->
       <div class="col col-2">
@@ -42,6 +42,11 @@ export default {
     return {
       imageData:''
     }
+  },
+  methods: {
+    setImageData(imageData) {
+      this.imageData = imageData
+    },
   }
 }
 </script>

@@ -15,15 +15,15 @@ export default {
   methods: {
     handleImage(event) {
       const selectedImage = event.target.files[0];
-      this.emitImageData(selectedImage);
+      this.emitNewImageData(selectedImage);
     },
 
-    emitImageData(fileObject) {
+    emitNewImageData(fileObject) {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageData = reader.result;
         this.$emit('event-new-image-file-selected', this.imageData)
-      };
+      }
       reader.onerror = function (error) {
         alert(error);
       }

@@ -3,7 +3,7 @@
     <LocationNameInput/>
     <NumberOfAtmsInput/>
     <TransactionTypeCheckbox/>
-    <ImageInput @event-new-image-file-selected="updateLocationViewImageData" />
+    <ImageInput @event-new-image-file-selected="emitNewImageData" />
   </div>
 </template>
 <script>
@@ -16,8 +16,8 @@ export default {
   name: 'LocationDetailsInput',
   components: {TransactionTypeCheckbox, NumberOfAtmsInput, LocationNameInput, ImageInput},
   methods: {
-    updateLocationViewImageData(imageData) {
-      this.$parent.$data.imageData = imageData
+    emitNewImageData(imageData) {
+      this.$emit('event-new-image-file-selected', imageData)
     },
   }
 }
