@@ -1,8 +1,8 @@
 <template>
   <div>
     <LocationNameInput ref="locationNameInputRef"/>
-    <NumberOfAtmsInput/>
-    <TransactionTypeCheckbox/>
+    <NumberOfAtmsInput ref="numberOfAtmsInputRef"/>
+    <TransactionTypeCheckbox ref="transactionTypeCheckboxRef"/>
     <ImageInput @event-new-image-file-selected="emitNewImageData" />
   </div>
 </template>

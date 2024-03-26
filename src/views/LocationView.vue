@@ -72,6 +72,8 @@ export default {
     addAtmLocation() {
       // todo: kogu andmed kokku, eesmärgiga saata need hiljem backendi
       this.atmLocation.locationName = this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName
+      this.atmLocation.numberOfAtms = this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms
+      this.atmLocation.transactionTypes = this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.transactionTypes
     },
 
 
