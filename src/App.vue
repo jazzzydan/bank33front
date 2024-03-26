@@ -5,6 +5,12 @@
     <router-link to="/atms">Pangaautomaadid</router-link>
     |
     <template v-if="isLoggedIn">
+
+      <template v-if="isAdmin" >
+        <router-link to="/location">Asukoht</router-link>
+        |
+      </template>
+
       <a href="#" @click="executeLogOut">Logi välja</a>
     </template>
     <template v-else>
@@ -22,14 +28,27 @@ export default {
   name: 'App',
   data() {
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
+      isAdmin: false
     }
   },
   methods: {
 
     updateNavMenu() {
+      this.updateIsLoggedInValue()
+      this.updateIsAdminValue()
+    },
+
+    updateIsLoggedInValue() {
       let userId = sessionStorage.getItem('userId')
-      this.isLoggedIn = userId !== null;
+      this.isLoggedIn = userId !== null
+    },
+
+    updateIsAdminValue() {
+      if (this.isLoggedIn) {
+        let roleName = sessionStorage.getItem('roleName');
+        this.isAdmin = roleName === 'admin'
+      }
     },
 
     executeLogOut() {
