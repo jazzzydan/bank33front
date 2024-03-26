@@ -1,24 +1,24 @@
 <template>
-  <div>
-    <input type="file" v-on:change="handleImage" accept="image/x-png,image/jpeg,image/gif">
+  <div class="mb-3">
+    <input type="file" class="form-control" @change="handleImage" accept="image/x-png,image/jpeg,image/gif">
   </div>
 </template>
 
 <script>
 export default {
   name: 'ImageInput',
-  data: function () {
+  data() {
     return {
       pictureDataBase64: String
     }
   },
   methods: {
-    handleImage: function (event) {
+    handleImage(event) {
       const selectedImage = event.target.files[0];
       this.emitBase64(selectedImage);
     },
 
-    emitBase64: function (fileObject) {
+    emitBase64(fileObject) {
       const reader = new FileReader();
       reader.onload = () => {
         this.pictureDataBase64 = reader.result;

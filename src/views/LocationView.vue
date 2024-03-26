@@ -11,9 +11,6 @@
       <div class="col col-2">
         <CitiesDropdown/>
       </div>
-
-
-
       <div class="col col-3">
         <!--   Asukoht  -->
         <div class="input-group mb-3">
@@ -49,14 +46,18 @@
           </div>
         </div>
 
-      <!--   Image input     -->
-      <ImageInput/>
+        <!--   Image input     -->
+        <ImageInput/>
       </div>
-
-
-
+      <!--   atm image   -->
       <div class="col col-2">
         <img src="../assets/atm.png" class="img-thumbnail">
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col col-2">
+        <button type="button" class="btn btn-outline-secondary me-3">Tagasi</button>
+        <button type="button" class="btn btn-outline-success">Lisa</button>
       </div>
     </div>
   </div>
