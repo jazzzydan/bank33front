@@ -37,9 +37,6 @@ export default {
       this.$refs.locationsTableRef.selectedCityId = selectedCityId
       this.$refs.locationsTableRef.sendGetAtmLocationsRequest()
     },
-  },
-  mounted() {
-    // this.proofOfConcept()
   }
 }
 </script>
