@@ -21,7 +21,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-2 text-nowrap">
-        <button type="button" class="btn btn-outline-secondary m-1">Tagasi</button>
+        <button @click="navigateToAtmsView" type="button" class="btn btn-outline-secondary m-1">Tagasi</button>
         <button type="button" class="btn btn-outline-success m-1">Lisa</button>
       </div>
     </div>
@@ -34,18 +34,23 @@ import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import CitiesDropdown from "@/components/city/CitiesDropdown.vue";
 import LocationDetailsInput from "@/components/location/input/LocationDetailsInput.vue";
 import AtmImage from "@/views/AtmImage.vue";
+import router from "@/router";
 
 export default {
   name: 'LocationView',
   components: {AtmImage, LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger},
-  data(){
+  data() {
     return {
-      imageData:''
+      imageData: ''
     }
   },
   methods: {
     setImageData(imageData) {
       this.imageData = imageData
+    },
+
+    navigateToAtmsView() {
+      router.push({name: 'atmsRoute'})
     },
   }
 }
