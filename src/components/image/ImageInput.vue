@@ -9,20 +9,20 @@ export default {
   name: 'ImageInput',
   data() {
     return {
-      pictureDataBase64: String
+      imageDataBase64: String
     }
   },
   methods: {
     handleImage(event) {
       const selectedImage = event.target.files[0];
-      this.emitBase64(selectedImage);
+      this.emitImageData(selectedImage);
     },
 
-    emitBase64(fileObject) {
+    emitImageData(fileObject) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.pictureDataBase64 = reader.result;
-        this.$emit('emitBase64Event', this.pictureDataBase64)
+        this.imageDataBase64 = reader.result;
+        this.$emit('event-new-image-file-selected', this.imageDataBase64)
       };
       reader.onerror = function (error) {
         alert(error);

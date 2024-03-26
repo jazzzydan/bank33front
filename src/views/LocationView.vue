@@ -16,7 +16,7 @@
       </div>
       <!--   atm image   -->
       <div class="col col-2">
-        <img src="../assets/atm.png" class="img-thumbnail">
+        <AtmImage :image-data-base64="imageData"/>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -33,10 +33,16 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import CitiesDropdown from "@/components/city/CitiesDropdown.vue";
 import LocationDetailsInput from "@/components/location/input/LocationDetailsInput.vue";
+import AtmImage from "@/views/AtmImage.vue";
 
 export default {
   name: 'LocationView',
-  components: {LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger}
+  components: {AtmImage, LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger},
+  data(){
+    return {
+      imageData:''
+    }
+  }
 }
 </script>
 

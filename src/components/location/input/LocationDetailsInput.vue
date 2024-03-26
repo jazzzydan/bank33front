@@ -3,7 +3,7 @@
     <LocationNameInput/>
     <NumberOfAtmsInput/>
     <TransactionTypeCheckbox/>
-    <ImageInput/>
+    <ImageInput @event-new-image-file-selected="updateLocationViewImageData" />
   </div>
 </template>
 <script>
@@ -14,6 +14,11 @@ import TransactionTypeCheckbox from "@/components/location/input/TransactionType
 
 export default {
   name: 'LocationDetailsInput',
-  components: {TransactionTypeCheckbox, NumberOfAtmsInput, LocationNameInput, ImageInput}
+  components: {TransactionTypeCheckbox, NumberOfAtmsInput, LocationNameInput, ImageInput},
+  methods: {
+    updateLocationViewImageData(imageData) {
+      this.$parent.$data.imageData = imageData
+    },
+  }
 }
 </script>
