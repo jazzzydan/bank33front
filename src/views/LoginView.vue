@@ -95,15 +95,15 @@ export default {
       this.handleSomethingWentWrongError();
     },
 
-    handleSomethingWentWrongError: function () {
-      if (111 !== this.errorResponse.errorCode) {
-        router.push({name: 'errorRoute'})
-      }
-    },
-
     handleIncorrectCredentialsError(statusCode) {
       if (this.incorrectCredentials(statusCode)) {
         this.displayIncorrectCredentialsAlert()
+      }
+    },
+
+    handleSomethingWentWrongError() {
+      if (111 !== this.errorResponse.errorCode) {
+        router.push({name: 'errorRoute'})
       }
     },
 

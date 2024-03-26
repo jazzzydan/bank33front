@@ -84,18 +84,27 @@ export default {
     },
 
     handleErrorResponse(statusCode) {
+      this.handleNotAtmLocationsFoundError(statusCode);
+      this.handleSomethingWentWrongError()
+    },
 
-      if (statusCode === 404 && this.errorResponse.errorCode) {
+
+    handleNotAtmLocationsFoundError(statusCode) {
+      if (statusCode === 404 && this.errorResponse.errorCode === 222) {
         this.$parent.$data.message = this.errorResponse.message;
         setTimeout(this.resetErrorResponseMessage, 2000)
       }
+    },
 
+    handleSomethingWentWrongError() {
+      if (222 !== this.errorResponse.errorCode) {
+        router.push({name: 'errorRoute'})
+      }
     },
 
     resetErrorResponseMessage() {
       this.$parent.$data.message = ''
     },
-
 
   },
   beforeMount() {
