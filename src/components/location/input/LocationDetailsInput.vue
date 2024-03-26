@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LocationNameInput/>
+    <LocationNameInput ref="locationNameInputRef"/>
     <NumberOfAtmsInput/>
     <TransactionTypeCheckbox/>
     <ImageInput @event-new-image-file-selected="emitNewImageData" />

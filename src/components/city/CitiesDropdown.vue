@@ -32,8 +32,7 @@ export default {
     },
 
     emitSelectedCityId() {
-      // this.$emit('event-selected-city-change', this.selectedCityId)
-      this.$parent.$data.selectedCityId = this.selectedCityId
+      this.$emit('event-selected-city-change', this.selectedCityId)
     },
 
   },

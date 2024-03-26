@@ -9,20 +9,20 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-2">
-        <CitiesDropdown/>
+        <CitiesDropdown @event-selected-city-change="setCityId"/>
       </div>
       <div class="col col-3">
-        <LocationDetailsInput @event-new-image-file-selected="setImageData"/>
+        <LocationDetailsInput ref="locationDetailsInputRef" @event-new-image-file-selected="setImageData"/>
       </div>
       <!--   atm image   -->
       <div class="col col-2">
-        <AtmImage :image-data="imageData"/>
+        <AtmImage :image-data="atmLocation.imageData"/>
       </div>
     </div>
     <div class="row justify-content-center">
       <div class="col col-2 text-nowrap">
         <button @click="navigateToAtmsView" type="button" class="btn btn-outline-secondary m-1">Tagasi</button>
-        <button type="button" class="btn btn-outline-success m-1">Lisa</button>
+        <button @click="addAtmLocation" type="button" class="btn btn-outline-success m-1">Lisa</button>
       </div>
     </div>
   </div>
@@ -41,17 +41,40 @@ export default {
   components: {AtmImage, LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger},
   data() {
     return {
-      imageData: ''
+      atmLocation: {
+        cityId: 0,
+        locationName: '',
+        numberOfAtms: 0,
+        imageData: '',
+        transactionTypes: [
+          {
+            transactionTypeId: 0,
+            transactionTypeName: '',
+            isAvailable: true
+          }
+        ]
+      }
     }
   },
   methods: {
     setImageData(imageData) {
-      this.imageData = imageData
+      this.atmLocation.imageData = imageData
+    },
+
+    setCityId(selectedCityId) {
+      this.atmLocation.cityId = selectedCityId
     },
 
     navigateToAtmsView() {
       router.push({name: 'atmsRoute'})
     },
+
+    addAtmLocation() {
+      // todo: kogu andmed kokku, eesmärgiga saata need hiljem backendi
+      this.atmLocation.locationName = this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName
+    },
+
+
   }
 }
 </script>
