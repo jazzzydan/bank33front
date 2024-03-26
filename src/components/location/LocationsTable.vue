@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-dark table-hover">
+  <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
     <thead>
     <tr>
       <th scope="col">Linn</th>
@@ -13,7 +13,8 @@
       <td>{{ atm.locationName }}</td>
       <td>
         <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">
-          {{ transactionType.transactionTypeName }}</p>
+          {{ transactionType.transactionTypeName }}
+        </p>
       </td>
     </tr>
     </tbody>
@@ -57,7 +58,6 @@ export default {
         case 0:
           prefer = 'code=200, example=0'
           break
-
         case 2:
           prefer = 'code=200, example=2'
           break
@@ -88,9 +88,9 @@ export default {
       this.handleSomethingWentWrongError()
     },
 
-
     handleNotAtmLocationsFoundError(statusCode) {
       if (statusCode === 404 && this.errorResponse.errorCode === 222) {
+        this.clearLocationsTable()
         this.$parent.$data.message = this.errorResponse.message;
         setTimeout(this.resetErrorResponseMessage, 2000)
       }
@@ -106,6 +106,9 @@ export default {
       this.$parent.$data.message = ''
     },
 
+    clearLocationsTable() {
+      this.atmLocations = []
+    }
   },
   beforeMount() {
     this.sendGetAtmLocationsRequest()
