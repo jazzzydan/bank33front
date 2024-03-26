@@ -16,7 +16,7 @@
       </div>
       <!--   atm image   -->
       <div class="col col-2">
-        <AtmImage :image-data-base64="imageData"/>
+        <AtmImage :image-data="imageData"/>
       </div>
     </div>
     <div class="row justify-content-center">
