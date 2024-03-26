@@ -5,12 +5,10 @@
     <router-link to="/atms">Pangaautomaadid</router-link>
     |
     <template v-if="isLoggedIn">
-
       <template v-if="isAdmin" >
         <router-link to="/location">Asukoht</router-link>
         |
       </template>
-
       <a href="#" @click="executeLogOut">Logi välja</a>
     </template>
     <template v-else>
