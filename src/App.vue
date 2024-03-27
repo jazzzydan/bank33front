@@ -1,5 +1,6 @@
 <template>
   <LogOutModal ref="logOutModalRef" @event-update-nav-menu="updateNavMenu"/>
+  <LogInModal ref="logInModalRef" @event-update-nav-menu="updateNavMenu"/>
   <nav>
     <router-link to="/">Kodu</router-link>
     |
@@ -13,7 +14,7 @@
       <a href="#" @click="openLogOutModal">Logi välja</a>
     </template>
     <template v-else>
-      <router-link to="/login">Sisse logimine</router-link>
+      <a href="#" @click="openLogInModal">Logi sisse</a>
     </template>
   </nav>
 
@@ -22,10 +23,11 @@
 
 <script>
 import LogOutModal from "@/components/modal/LogOutModal.vue";
+import LogInModal from "@/components/modal/LogInModal.vue";
 
 export default {
   name: 'App',
-  components: {LogOutModal},
+  components: {LogInModal, LogOutModal},
   data() {
     return {
       isLoggedIn: false,
@@ -53,6 +55,10 @@ export default {
 
     openLogOutModal() {
       this.$refs.logOutModalRef.$refs.modalRef.openModal()
+    },
+
+    openLogInModal() {
+      this.$refs.logInModalRef.$refs.modalRef.openModal()
     },
 
   },
