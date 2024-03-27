@@ -9,7 +9,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-2">
-        <CitiesDropdown @event-selected-city-change="setCityId"/>
+        <CitiesDropdown ref="citiesDropdownRef" @event-selected-city-change="setCityId"/>
       </div>
       <div class="col col-3">
         <LocationDetailsInput ref="locationDetailsInputRef" @event-new-image-file-selected="setImageData"/>
@@ -122,9 +122,23 @@ export default {
     },
 
 
-    handlePostAtmLocationResponse: function () {
+    handlePostAtmLocationResponse() {
+      this.showSuccessMessage()
+      this.resetAllInputFields()
+    },
+
+    showSuccessMessage() {
       this.successMessage = 'Pangaautomaadi asukoht "' + this.atmLocation.locationName + '" lisatud!'
-      setTimeout(this.resetAlertMessages, 2000)
+      setTimeout(this.resetAlertMessages, 4000)
+    },
+
+    resetAllInputFields() {
+      this.$refs.citiesDropdownRef.selectedCityId = 0
+      this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName = ''
+      this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms = null
+      this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
+      this.$refs.locationDetailsInputRef.$refs.imageInputRef.clearImageInput()
+      this.atmLocation.imageData = ''
     },
 
 

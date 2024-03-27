@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <input type="file" class="form-control" @change="handleImage" accept="image/x-png,image/jpeg,image/gif">
+    <input ref="fileInputRef" type="file" class="form-control" @change="handleImage" accept="image/x-png,image/jpeg,image/gif">
   </div>
 </template>
 
@@ -28,7 +28,11 @@ export default {
         alert(error);
       }
       reader.readAsDataURL(fileObject);
-    }
+    },
+
+    clearImageInput() {
+      this.$refs.fileInputRef.value = '';
+    },
   }
 }
 </script>

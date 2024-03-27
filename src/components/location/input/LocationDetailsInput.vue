@@ -3,7 +3,7 @@
     <LocationNameInput ref="locationNameInputRef"/>
     <NumberOfAtmsInput ref="numberOfAtmsInputRef"/>
     <TransactionTypeCheckbox ref="transactionTypeCheckboxRef"/>
-    <ImageInput @event-new-image-file-selected="emitNewImageData" />
+    <ImageInput ref="imageInputRef" @event-new-image-file-selected="emitNewImageData" />
   </div>
 </template>
 <script>
