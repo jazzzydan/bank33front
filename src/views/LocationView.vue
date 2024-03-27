@@ -150,7 +150,7 @@ export default {
     handleLocationNameNotAvailableError() {
       if (this.errorResponse.errorCode === 333) {
         this.errorMessage = this.errorResponse.message
-        setTimeout(this.resetAlertMessages, 2000)
+        setTimeout(this.resetAlertMessages, 4000)
       }
     },
 
