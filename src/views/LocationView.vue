@@ -2,8 +2,8 @@
   <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col col-5">
-        <AlertDanger message="placheholder"/>
-        <AlertSuccess message="placeholder"/>
+        <AlertDanger :message="errorMessage"/>
+        <AlertSuccess :message="successMessage"/>
         <h1>Lisa asukoht</h1>
       </div>
     </div>
@@ -41,6 +41,9 @@ export default {
   components: {AtmImage, LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger},
   data() {
     return {
+      errorMessage: '',
+      successMessage: '',
+
       atmLocation: {
         cityId: 0,
         locationName: '',
@@ -53,7 +56,13 @@ export default {
             isAvailable: true
           }
         ]
+      },
+
+      errorResponse: {
+        message: '',
+        errorCode: 0
       }
+
     }
   },
   methods: {
@@ -70,21 +79,15 @@ export default {
     },
 
     addAtmLocation() {
-      // todo: kogu andmed kokku, eesmärgiga saata need hiljem backendi
       this.getAndSetAtmLocationValues()
 
-      // todo: valideeri, et kõik väljad on nõetekohaselt täidetud, kui jah siis saada sõnum, kui ei siis viska vastav teade
       if (this.allFieldsWithCorrectInput()) {
-        //todo: saada sõnum
-
-
+        this.sendPostAtmLocationRequest()
       } else {
-        //todo: viska teade, "Täida kõik väljad"
-
+        this.errorMessage = 'Täida kõik väljad'
+        setTimeout(this.resetAlertMessages, 2000)
       }
-
     },
-
 
     getAndSetAtmLocationValues() {
       this.atmLocation.locationName = this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName
@@ -92,31 +95,62 @@ export default {
       this.atmLocation.transactionTypes = this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.transactionTypes
     },
 
-    getNumberOfSelectedTransactionTypes: function () {
-      let numberOfSelectedTransactionTypesCount = 0
+    allFieldsWithCorrectInput() {
+      return this.atmLocation.cityId !== 0 &&
+          this.atmLocation.locationName !== '' &&
+          this.atmLocation.numberOfAtms !== 0 && this.atmLocation.numberOfAtms !== null &&
+          this.atLeastOneTransactionTypeSelected()
+    },
+
+    atLeastOneTransactionTypeSelected() {
       for (let i = 0; i < this.atmLocation.transactionTypes.length; i++) {
         if (this.atmLocation.transactionTypes[i].isAvailable) {
-          numberOfSelectedTransactionTypesCount++;
+          return true
         }
       }
-      return numberOfSelectedTransactionTypesCount;
+      return false;
     },
 
 
-    allFieldsWithCorrectInput() {
-
-     const cityIdOk = this.atmLocation.cityId !== 0
-
-      const locationNameOk = this.atmLocation.locationName !== ''
-
-      const numberOfAtmsOk = (this.atmLocation.numberOfAtms !== 0 && this.atmLocation.numberOfAtms !== null)
-      let numberOfSelectedTransactionTypesCount = this.getNumberOfSelectedTransactionTypes();
-
-      numberOfSelectedTransactionTypesCount
-
-      return true;
+    sendPostAtmLocationRequest() {
+      this.$http.post("/atm/location", this.atmLocation)
+          .then(() => this.handlePostAtmLocationResponse())
+          .catch(error => {
+            this.errorResponse = error.response.data
+            this.handleError()
+          })
     },
 
+
+    handlePostAtmLocationResponse: function () {
+      this.successMessage = 'Pangaautomaadi asukoht "' + this.atmLocation.locationName + '" lisatud!'
+      setTimeout(this.resetAlertMessages, 2000)
+    },
+
+
+    handleError() {
+      this.handleLocationNameNotAvailableError()
+      this.handleSomethingWentWrongError()
+    },
+
+    handleLocationNameNotAvailableError() {
+      if (this.errorResponse.errorCode === 333) {
+        this.errorMessage = this.errorResponse.message
+        setTimeout(this.resetAlertMessages, 2000)
+      }
+    },
+
+    handleSomethingWentWrongError() {
+      if (this.errorResponse.errorCode !== 333) {
+        router.push({name: 'errorRoute'})
+      }
+    },
+
+
+    resetAlertMessages() {
+      this.errorMessage = ''
+      this.successMessage = ''
+    },
 
 
   }
