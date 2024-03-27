@@ -26,7 +26,7 @@ import router from "@/router";
 
 
 export default {
-  name: 'LoginView',
+  name: 'LogInModal',
   components: {AlertDanger},
   data() {
     return {

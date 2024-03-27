@@ -1,6 +1,6 @@
 <template>
   <LogOutModal ref="logOutModalRef" @event-update-nav-menu="updateNavMenu"/>
-  <LogInModal ref="logInModalRef" @event-update-nav-menu="updateNavMenu"/>
+  <LogInModal/>
   <nav>
     <router-link to="/">Kodu</router-link>
     |
@@ -24,7 +24,6 @@
 <script>
 import LogOutModal from "@/components/modal/LogOutModal.vue";
 import LogInModal from "@/components/modal/LogInModal.vue";
-
 export default {
   name: 'App',
   components: {LogInModal, LogOutModal},
