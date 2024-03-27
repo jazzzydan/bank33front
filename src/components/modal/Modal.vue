@@ -1,5 +1,4 @@
 <template>
-  <!-- Modal -->
   <div v-if="isOpen" class="modal fade show d-block" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
