@@ -71,10 +71,52 @@ export default {
 
     addAtmLocation() {
       // todo: kogu andmed kokku, eesmärgiga saata need hiljem backendi
+      this.getAndSetAtmLocationValues()
+
+      // todo: valideeri, et kõik väljad on nõetekohaselt täidetud, kui jah siis saada sõnum, kui ei siis viska vastav teade
+      if (this.allFieldsWithCorrectInput()) {
+        //todo: saada sõnum
+
+
+      } else {
+        //todo: viska teade, "Täida kõik väljad"
+
+      }
+
+    },
+
+
+    getAndSetAtmLocationValues() {
       this.atmLocation.locationName = this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName
       this.atmLocation.numberOfAtms = this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms
       this.atmLocation.transactionTypes = this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.transactionTypes
     },
+
+    getNumberOfSelectedTransactionTypes: function () {
+      let numberOfSelectedTransactionTypesCount = 0
+      for (let i = 0; i < this.atmLocation.transactionTypes.length; i++) {
+        if (this.atmLocation.transactionTypes[i].isAvailable) {
+          numberOfSelectedTransactionTypesCount++;
+        }
+      }
+      return numberOfSelectedTransactionTypesCount;
+    },
+
+
+    allFieldsWithCorrectInput() {
+
+     const cityIdOk = this.atmLocation.cityId !== 0
+
+      const locationNameOk = this.atmLocation.locationName !== ''
+
+      const numberOfAtmsOk = (this.atmLocation.numberOfAtms !== 0 && this.atmLocation.numberOfAtms !== null)
+      let numberOfSelectedTransactionTypesCount = this.getNumberOfSelectedTransactionTypes();
+
+      numberOfSelectedTransactionTypesCount
+
+      return true;
+    },
+
 
 
   }
