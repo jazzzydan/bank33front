@@ -1,4 +1,5 @@
 <template>
+  <Modal/>
   <nav>
     <router-link to="/">Kodu</router-link>
     |
@@ -21,9 +22,11 @@
 
 <script>
 import router from "@/router";
+import Modal from "@/components/modal/Modal.vue";
 
 export default {
   name: 'App',
+  components: {Modal},
   data() {
     return {
       isLoggedIn: false,

@@ -5,6 +5,7 @@ import VueAxios from "vue-axios";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.js"
+import "@/assets/css/style.css"
 
 // Font Awesome imports
 import { library } from '@fortawesome/fontawesome-svg-core'
