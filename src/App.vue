@@ -1,5 +1,5 @@
 <template>
-  <LogOutModal ref="logOutModalRef"/>
+  <LogOutModal ref="logOutModalRef" @event-update-nav-menu="updateNavMenu"/>
   <nav>
     <router-link to="/">Kodu</router-link>
     |
@@ -10,7 +10,7 @@
         <router-link to="/location">Asukoht</router-link>
         |
       </template>
-      <a href="#" @click="executeLogOut">Logi välja</a>
+      <a href="#" @click="openLogOutModal">Logi välja</a>
     </template>
     <template v-else>
       <router-link to="/login">Sisse logimine</router-link>
@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import router from "@/router";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
 
 export default {
@@ -52,12 +51,8 @@ export default {
       }
     },
 
-    executeLogOut() {
-
+    openLogOutModal() {
       this.$refs.logOutModalRef.$refs.modalRef.openModal()
-      // sessionStorage.clear()
-      // this.updateNavMenu()
-      // router.push({name: 'homeRoute'})
     },
 
   },
