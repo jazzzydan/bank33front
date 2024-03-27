@@ -103,14 +103,13 @@ export default {
     },
 
     atLeastOneTransactionTypeSelected() {
-      for (let i = 0; i < this.atmLocation.transactionTypes.length; i++) {
-        if (this.atmLocation.transactionTypes[i].isAvailable) {
+      for (const transactionType of this.atmLocation.transactionTypes) {
+        if (transactionType.isAvailable) {
           return true
         }
       }
       return false;
     },
-
 
     sendPostAtmLocationRequest() {
       this.$http.post("/atm/location", this.atmLocation)
