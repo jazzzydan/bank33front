@@ -1,5 +1,12 @@
 <template>
-    <Modal ref="modalRef"/>
+  <Modal ref="modalRef">
+    <template #title>
+      Logi välja?
+    </template>
+    <template #buttons>
+      <button type="button" class="btn btn-danger">Jah</button>
+    </template>
+  </Modal>
 </template>
 
 <script>
