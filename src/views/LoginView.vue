@@ -1,49 +1,33 @@
 <template>
-  <Modal ref="modalRef">
-    <template #title>
-      Soovid sisse logida?
-    </template>
-
-    <template #body>
-      <div class="container text-start">
-        <div class="row justify-content-center">
-          <div class="col col-3">
-            <AlertDanger :message="message"/>
-            <div class="mb-3">
-              <label for="username" class="form-label">Kasutajanimi</label>
-              <input v-model="username" type="text" class="form-control" id="username">
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Parool</label>
-              <input v-model="password" type="password" class="form-control" id="password">
-            </div>
-            <div class="d-grid mx-auto col-6">
-              ???
-            </div>
-          </div>
+  <div class="container text-start">
+    <div class="row justify-content-center">
+      <div class="col col-3">
+        <AlertDanger :message="message"/>
+        <div class="mb-3">
+          <label for="username" class="form-label">Kasutajanimi</label>
+          <input v-model="username" type="text" class="form-control" id="username">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Parool</label>
+          <input v-model="password" type="password" class="form-control" id="password">
+        </div>
+        <div class="d-grid mx-auto col-6">
+          <button @click="login" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
         </div>
       </div>
-    </template>
-
-
-    <template #buttons>
-      <button @click="login" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
-    </template>
-
-  </Modal>
-
+    </div>
+  </div>
 </template>
 
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import router from "@/router";
-import Modal from "@/components/modal/Modal.vue";
 
 
 export default {
-  name: 'LogInModal',
-  components: {Modal, AlertDanger},
+  name: 'LoginView',
+  components: {AlertDanger},
   data() {
     return {
       username: '',

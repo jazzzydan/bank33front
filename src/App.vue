@@ -24,6 +24,7 @@
 <script>
 import LogOutModal from "@/components/modal/LogOutModal.vue";
 import LogInModal from "@/components/modal/LogInModal.vue";
+
 export default {
   name: 'App',
   components: {LogInModal, LogOutModal},
