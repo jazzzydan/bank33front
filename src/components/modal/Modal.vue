@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <h1 class="modal-title fs-5">
            <slot name="title">
              <!-- Title -->
            </slot>
