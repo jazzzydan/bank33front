@@ -1,5 +1,5 @@
 <template>
-  <Modal/>
+  <LogOutModal ref="logOutModalRef"/>
   <nav>
     <router-link to="/">Kodu</router-link>
     |
@@ -22,11 +22,11 @@
 
 <script>
 import router from "@/router";
-import Modal from "@/components/modal/Modal.vue";
+import LogOutModal from "@/components/modal/LogOutModal.vue";
 
 export default {
   name: 'App',
-  components: {Modal},
+  components: {LogOutModal},
   data() {
     return {
       isLoggedIn: false,
@@ -53,9 +53,11 @@ export default {
     },
 
     executeLogOut() {
-      sessionStorage.clear()
-      this.updateNavMenu()
-      router.push({name: 'homeRoute'})
+
+      this.$refs.logOutModalRef.$refs.modalRef.openModal()
+      // sessionStorage.clear()
+      // this.updateNavMenu()
+      // router.push({name: 'homeRoute'})
     },
 
   },
