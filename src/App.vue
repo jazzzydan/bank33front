@@ -1,6 +1,6 @@
 <template>
   <LogOutModal ref="logOutModalRef" @event-update-nav-menu="updateNavMenu"/>
-  <LogInModal/>
+  <LogInModal ref="logInModalRef" @event-update-nav-menu="updateNavMenu"/>
   <nav>
     <router-link to="/">Kodu</router-link>
     |
