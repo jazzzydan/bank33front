@@ -162,7 +162,6 @@ export default {
       await this.sendGetAtmLocationInfoRequest()
       this.$refs.deleteLocationInfoModalRef.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
       this.$refs.deleteLocationInfoModalRef.locationId = locationId
-
     },
 
 

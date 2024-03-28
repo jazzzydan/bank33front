@@ -18,9 +18,13 @@
         </div>
       </div>
     </template>
-    <slot name="buttons">
 
-    </slot>
+    <template #buttons>
+      <slot name="buttons">
+
+      </slot>
+    </template>
+
   </Modal>
 </template>
 
