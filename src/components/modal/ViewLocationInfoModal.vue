@@ -18,6 +18,9 @@
         </div>
       </div>
     </template>
+    <slot name="buttons">
+
+    </slot>
   </Modal>
 </template>
 

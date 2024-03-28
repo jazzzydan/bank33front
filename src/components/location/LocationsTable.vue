@@ -7,6 +7,7 @@
         <th scope="col">Linn</th>
         <th scope="col">Asukoht</th>
         <th scope="col">Teenused</th>
+        <th scope="col">ikoonid</th>
       </tr>
       </thead>
       <tbody>
@@ -20,6 +21,9 @@
           <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">
             {{ transactionType.transactionTypeName }}
           </p>
+        </td>
+        <td>
+          <font-awesome-icon class="link-danger" :icon="['far', 'trash-can']" />
         </td>
       </tr>
       </tbody>
