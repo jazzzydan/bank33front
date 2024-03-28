@@ -13,7 +13,7 @@
       <tr v-for="atm in atmLocations" :key="atm.locationId">
         <td>{{ atm.cityName }}</td>
         <td>
-          <a href="#" @click="openViewLocationInfoModal(atm.locationId)">{{atm.locationId}} -  {{ atm.locationName }}</a>
+          <a href="#" @click="openViewLocationInfoModal(atm.locationId)">{{ atm.locationName }}</a>
 
         </td>
         <td>
@@ -107,11 +107,11 @@ export default {
     },
 
     handleErrorResponse(statusCode) {
-      this.handleNotAtmLocationsFoundError(statusCode);
+      this.handleNoAtmLocationsFoundError(statusCode);
       this.handleSomethingWentWrongError()
     },
 
-    handleNotAtmLocationsFoundError(statusCode) {
+    handleNoAtmLocationsFoundError(statusCode) {
       if (statusCode === 404 && this.errorResponse.errorCode === 222) {
         this.clearLocationsTable()
         this.$parent.$data.message = this.errorResponse.message;
@@ -148,8 +148,8 @@ export default {
         this.atmLocationInfo = response.data
         this.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
 
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+       router.push({name: 'errorRoute'})
       })
     },
 

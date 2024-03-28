@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modalRef">
+  <Modal ref="modalRef" @event-close-modal="resetAllInputFields">
     <template #title>
       Kas soovid sisse logida?
     </template>
