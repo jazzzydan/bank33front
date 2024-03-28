@@ -1,30 +1,39 @@
 <template>
-  <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
-    <thead>
-    <tr>
-      <th scope="col">Linn</th>
-      <th scope="col">Asukoht</th>
-      <th scope="col">Teenused</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="atm in atmLocations" :key="atm.locationId">
-      <td>{{ atm.cityName }}</td>
-      <td>{{ atm.locationName }}</td>
-      <td>
-        <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">
-          {{ transactionType.transactionTypeName }}
-        </p>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div>
+    <ViewLocationInfoModal ref="viewLocationInfoModalRef"/>
+    <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Linn</th>
+        <th scope="col">Asukoht</th>
+        <th scope="col">Teenused</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="atm in atmLocations" :key="atm.locationId">
+        <td>{{ atm.cityName }}</td>
+        <td>
+          <a href="#" @click="openViewLocationInfoModal">{{ atm.locationName }}</a>
+
+        </td>
+        <td>
+          <p v-for="transactionType in atm.transactionTypes" :key="transactionType.transactionTypeName">
+            {{ transactionType.transactionTypeName }}
+          </p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
 </template>
 <script>
 import router from "@/router";
+import ViewLocationInfoModal from "@/components/modal/ViewLocationInfoModal.vue";
 
 export default {
   name: 'LocationsTable',
+  components: {ViewLocationInfoModal},
   data() {
     return {
       selectedCityId: 0,
@@ -108,7 +117,14 @@ export default {
 
     clearLocationsTable() {
       this.atmLocations = []
-    }
+    },
+
+    openViewLocationInfoModal() {
+      this.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
+    },
+
+
+
   },
   beforeMount() {
     this.sendGetAtmLocationsRequest()
