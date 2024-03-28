@@ -1,6 +1,7 @@
 <template>
   <div>
     <ViewLocationInfoModal ref="viewLocationInfoModalRef" :atm-location-info="atmLocationInfo"/>
+    <DeleteLocationInfoModal ref="deleteLocationInfoModalRef" :atm-location-info="atmLocationInfo"/>
     <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
       <thead>
       <tr>
@@ -23,7 +24,8 @@
           </p>
         </td>
         <td>
-          <font-awesome-icon class="link-danger" :icon="['far', 'trash-can']" />
+          <font-awesome-icon @click="openDeleteLocationInfoModal(atm.locationId)" class="link-warning cursor-pointer"
+                             :icon="['far', 'trash-can']"/>
         </td>
       </tr>
       </tbody>
@@ -34,10 +36,11 @@
 <script>
 import router from "@/router";
 import ViewLocationInfoModal from "@/components/modal/ViewLocationInfoModal.vue";
+import DeleteLocationInfoModal from "@/components/modal/DeleteLocationInfoModal.vue";
 
 export default {
   name: 'LocationsTable',
-  components: {ViewLocationInfoModal},
+  components: {DeleteLocationInfoModal, ViewLocationInfoModal},
   data() {
     return {
       selectedCityId: 0,
@@ -54,7 +57,7 @@ export default {
           ]
         }
       ],
-      
+
       atmLocationInfo: {
         cityId: 0,
         locationName: '',
@@ -137,26 +140,30 @@ export default {
       this.atmLocations = []
     },
 
-    openViewLocationInfoModal(locationId) {
-      this.sendGetAtmLocationInfoRequest(locationId)
-
+    async openViewLocationInfoModal(locationId) {
+      await this.sendGetAtmLocationInfoRequest(locationId)
+      this.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
     },
 
-    sendGetAtmLocationInfoRequest(locationId) {
-      this.$http.get("/atm/location", {
+   async sendGetAtmLocationInfoRequest(locationId) {
+    await this.$http.get("/atm/location", {
             params: {
               locationId: locationId
             }
           }
       ).then(response => {
         this.atmLocationInfo = response.data
-        this.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
-
       }).catch(() => {
-       router.push({name: 'errorRoute'})
+        router.push({name: 'errorRoute'})
       })
     },
 
+    async openDeleteLocationInfoModal(locationId) {
+      await this.sendGetAtmLocationInfoRequest()
+      this.$refs.deleteLocationInfoModalRef.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
+      this.$refs.deleteLocationInfoModalRef.locationId = locationId
+
+    },
 
 
   },
