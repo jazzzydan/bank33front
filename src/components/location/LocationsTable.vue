@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ViewLocationInfoModal ref="viewLocationInfoModalRef"/>
+    <ViewLocationInfoModal ref="viewLocationInfoModalRef" :atm-location-info="atmLocationInfo"/>
     <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
       <thead>
       <tr>
