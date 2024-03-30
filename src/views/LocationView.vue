@@ -33,8 +33,9 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import CitiesDropdown from "@/components/city/CitiesDropdown.vue";
 import LocationDetailsInput from "@/components/location/input/LocationDetailsInput.vue";
-import AtmImage from "@/assets/atm.png";
+
 import router from "@/router";
+import AtmImage from "@/components/image/AtmImage.vue";
 
 export default {
   name: 'LocationView',
