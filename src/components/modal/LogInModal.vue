@@ -104,7 +104,7 @@ export default {
 
     displayAllFieldsRequiredAlert() {
       this.message = "Täida kõik väljad";
-      setTimeout(this.resetMessage, 2000);
+      setTimeout(this.resetMessage, 4000);
     },
 
     handleError(statusCode) {
@@ -130,7 +130,7 @@ export default {
 
     displayIncorrectCredentialsAlert() {
       this.message = this.errorResponse.message;
-      setTimeout(this.resetMessage, 2000);
+      setTimeout(this.resetMessage, 4000);
     },
 
     resetMessage() {

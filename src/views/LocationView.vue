@@ -86,7 +86,7 @@ export default {
         this.sendPostAtmLocationRequest()
       } else {
         this.errorMessage = 'Täida kõik väljad'
-        setTimeout(this.resetAlertMessages, 2000)
+        setTimeout(this.resetAlertMessages, 4000)
       }
     },
 

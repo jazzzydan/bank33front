@@ -100,7 +100,7 @@ export default {
       if (statusCode === 404 && this.errorResponse.errorCode === 222) {
         this.clearLocationsTable()
         this.$parent.$data.message = this.errorResponse.message;
-        setTimeout(this.resetErrorResponseMessage, 2000)
+        setTimeout(this.resetErrorResponseMessage, 4000)
       }
     },
 
