@@ -82,8 +82,7 @@ export default {
   methods: {
 
     sendGetAtmLocationsRequest() {
-      const cityId = this.selectedCityId
-      this.$http.get(`/atm/locations/city/${cityId}` // kasuta template stringi märke (`)
+      this.$http.get(`/atm/locations/city/${this.selectedCityId}` // kasuta template stringi märke (`)
       ).then(response => {
         this.atmLocations = response.data
       }).catch(error => {
