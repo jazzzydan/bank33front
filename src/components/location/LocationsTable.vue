@@ -82,11 +82,8 @@ export default {
   methods: {
 
     sendGetAtmLocationsRequest() {
-      this.$http.get("/atm/locations", {
-            params: {
-              cityId: this.selectedCityId
-            },
-          }
+      const cityId = this.selectedCityId
+      this.$http.get(`/atm/locations/city/${cityId}` // kasuta template stringi märke (`)
       ).then(response => {
         this.atmLocations = response.data
       }).catch(error => {
@@ -127,8 +124,8 @@ export default {
       this.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
     },
 
-   async sendGetAtmLocationInfoRequest(locationId) {
-    await this.$http.get("/atm/location", {
+    async sendGetAtmLocationInfoRequest(locationId) {
+      await this.$http.get("/atm/location", {
             params: {
               locationId: locationId
             }
