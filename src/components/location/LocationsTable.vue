@@ -2,7 +2,7 @@
   <div>
     <ViewLocationInfoModal ref="viewLocationInfoModalRef" :atm-location-info="atmLocationInfo"/>
     <DeleteLocationInfoModal ref="deleteLocationInfoModalRef" :atm-location-info="atmLocationInfo"
-    @event-alert-location-deleted="emitEventAlertLocationDeleted"
+                             @event-alert-location-deleted="emitEventAlertLocationDeleted"
     />
     <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
       <thead>
