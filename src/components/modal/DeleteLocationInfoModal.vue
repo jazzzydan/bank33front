@@ -13,6 +13,7 @@
 
 <script>
 import ViewLocationInfoModal from "@/components/modal/ViewLocationInfoModal.vue";
+import router from "@/router";
 
 export default {
   name: 'DeleteLocationInfoModal',
@@ -33,7 +34,7 @@ export default {
             this.$refs.viewLocationInfoModalRef.$refs.modalRef.closeModal()
           })
           .catch(error => {
-            const errorResponseJSON = error.response.data
+            router.push({name: 'errorRoute'})
           })
     },
   }

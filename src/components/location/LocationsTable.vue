@@ -1,7 +1,9 @@
 <template>
   <div>
     <ViewLocationInfoModal ref="viewLocationInfoModalRef" :atm-location-info="atmLocationInfo"/>
-    <DeleteLocationInfoModal ref="deleteLocationInfoModalRef" :atm-location-info="atmLocationInfo"/>
+    <DeleteLocationInfoModal ref="deleteLocationInfoModalRef" :atm-location-info="atmLocationInfo"
+    @event-alert-location-deleted="emitEventAlertLocationDeleted"
+    />
     <table v-if="atmLocations.length > 0" class="table table-dark table-hover">
       <thead>
       <tr>
@@ -136,6 +138,9 @@ export default {
       this.$refs.deleteLocationInfoModalRef.locationId = locationId
     },
 
+    emitEventAlertLocationDeleted(locationName) {
+      this.$emit('event-alert-location-deleted', locationName)
+    },
 
   },
   beforeMount() {
