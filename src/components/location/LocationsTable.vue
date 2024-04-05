@@ -133,7 +133,7 @@ export default {
     },
 
     async openDeleteLocationInfoModal(locationId) {
-      await this.sendGetAtmLocationInfoRequest()
+      await this.sendGetAtmLocationInfoRequest(locationId)
       this.$refs.deleteLocationInfoModalRef.$refs.viewLocationInfoModalRef.$refs.modalRef.openModal()
       this.$refs.deleteLocationInfoModalRef.locationId = locationId
     },

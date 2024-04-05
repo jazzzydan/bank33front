@@ -42,6 +42,11 @@ export default {
     },
 
     handleLocationRemovedEvent(locationName) {
+      this.handleLocationRemovedSuccessMessage(locationName)
+      this.$refs.locationsTableRef.sendGetAtmLocationsRequest()
+    },
+
+    handleLocationRemovedSuccessMessage(locationName) {
       this.successMessage = "Pangaautomaadi info asukohal " + locationName + " edukalt kustutatud!"
       setTimeout(this.resetSuccessMessage,4000)
     },
