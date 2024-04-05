@@ -65,9 +65,7 @@ export default {
         imageData: '',
         transactionTypes: [
           {
-            transactionTypeId: 0,
-            transactionTypeName: '',
-            isAvailable: true
+            transactionTypeName: ''
           }
         ]
       },
