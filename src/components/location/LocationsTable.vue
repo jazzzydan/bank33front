@@ -124,11 +124,7 @@ export default {
     },
 
     async sendGetAtmLocationInfoRequest(locationId) {
-      await this.$http.get("/atm/location", {
-            params: {
-              locationId: locationId
-            }
-          }
+      await this.$http.get(`/atm/location/${locationId}`
       ).then(response => {
         this.atmLocationInfo = response.data
       }).catch(() => {
