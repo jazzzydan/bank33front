@@ -1,13 +1,13 @@
 <template>
-<div>
-  <ViewLocationInfoModal ref="viewLocationInfoModalRef" :atm-location-info="atmLocationInfo">
+  <div>
+    <ViewLocationInfoModal ref="viewLocationInfoModalRef" :atm-location-info="atmLocationInfo">
 
-    <template #buttons>
-      <button type="button" class="btn btn-danger">Kustuta</button>
-    </template>
+      <template #buttons>
+        <button @click="sendDeleteLocationRequest" type="button" class="btn btn-danger">Kustuta</button>
+      </template>
 
-  </ViewLocationInfoModal>
-</div>
+    </ViewLocationInfoModal>
+  </div>
 </template>
 
 
@@ -25,6 +25,19 @@ export default {
       locationId: 0
     }
   },
+  methods: {
+    sendDeleteLocationRequest() {
+      this.$http.delete(`/atm/location/${this.locationId}`)
+          .then(() => {
+            this.$emit('event-alert-location-deleted', this.atmLocationInfo.locationName)
+            this.$refs.viewLocationInfoModalRef.$refs.modalRef.closeModal()
+          })
+          .catch(error => {
+            const errorResponseJSON = error.response.data
+          })
+    },
+  }
+
 }
 </script>
 
