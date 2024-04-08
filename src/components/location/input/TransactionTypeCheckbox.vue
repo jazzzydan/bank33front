@@ -26,8 +26,8 @@ export default {
     }
   },
   methods: {
-    sendGetTransactionTypesRequest() {
-      this.$http.get('/atm/transaction-types')
+   async sendGetTransactionTypesRequest() {
+    await this.$http.get('/atm/transaction-types')
           .then(response => {
             this.transactionTypes = response.data
           })
@@ -35,9 +35,20 @@ export default {
             router.push({name: 'errorRoute'})
           })
     },
-  },
-  beforeMount() {
-    this.sendGetTransactionTypesRequest()
+
+    updateTransactionTypes(incomingTransactionTypes) {
+      console.log('OLEN SIIN')
+      for (const incomingTransactionType of incomingTransactionTypes) {
+
+        for (const transactionType of this.transactionTypes) {
+          if (incomingTransactionType.transactionTypeId === transactionType.transactionTypeId) {
+            transactionType.isAvailable = true
+          }
+        }
+
+      }
+
+    },
   }
 }
 </script>

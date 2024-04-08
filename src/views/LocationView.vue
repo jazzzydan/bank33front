@@ -188,7 +188,14 @@ export default {
         // todo: muuda heederid (Muuda asukoha infot)
         this.pageTitle = 'Muuda asukoha infot'
         this.$refs.citiesDropdownRef.selectedCityId = this.atmLocation.cityId
-        // todo: täida vormi väljad vastavate andmetega
+        this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName = this.atmLocation.locationName
+        this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms = this.atmLocation.numberOfAtms
+
+        this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
+
+
+        this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.updateTransactionTypes(this.atmLocation.transactionTypes)
+
         // todo: Kuva salvesta nuppu
         // todo: Implementeeri updateLocation funktsionaalsus
         //
