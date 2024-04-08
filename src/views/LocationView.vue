@@ -36,12 +36,22 @@ import LocationDetailsInput from "@/components/location/input/LocationDetailsInp
 
 import router from "@/router";
 import AtmImage from "@/components/image/AtmImage.vue";
+import {useRoute} from "vue-router";
 
 export default {
   name: 'LocationView',
   components: {AtmImage, LocationDetailsInput, CitiesDropdown, AlertSuccess, AlertDanger},
+
+  props: {
+    // URL + Path variable
+    locationId: String
+  },
+
+
   data() {
     return {
+      // URL + query/request parameter example
+      // locationId: useRoute().query.locationId,
       errorMessage: '',
       successMessage: '',
 

@@ -10,7 +10,8 @@
         <th scope="col">Linn</th>
         <th scope="col">Asukoht</th>
         <th scope="col">Teenused</th>
-        <th scope="col">ikoonid</th>
+        <th v-if="isAdmin" scope="col"></th>
+        <th v-if="isAdmin" scope="col"></th>
       </tr>
       </thead>
       <tbody>
@@ -25,7 +26,11 @@
             {{ transactionType.transactionTypeName }}
           </p>
         </td>
-        <td>
+        <td v-if="isAdmin"> {{ atm.locationId }} -
+          <font-awesome-icon @click="navigateToEditLocation(atm.locationId)" class="link-warning cursor-pointer"
+                             :icon="['far', 'pen-to-square']"/>
+        </td>
+        <td v-if="isAdmin">
           <font-awesome-icon @click="openDeleteLocationInfoModal(atm.locationId)" class="link-warning cursor-pointer"
                              :icon="['far', 'trash-can']"/>
         </td>
@@ -45,8 +50,8 @@ export default {
   components: {DeleteLocationInfoModal, ViewLocationInfoModal},
   data() {
     return {
+      isAdmin: false,
       selectedCityId: 0,
-
       atmLocations: [
         {
           locationId: 0,
@@ -142,9 +147,23 @@ export default {
       this.$emit('event-alert-location-deleted', locationName)
     },
 
+    updateIsAdminValue() {
+      const roleName = sessionStorage.getItem('roleName')
+      this.isAdmin = roleName === 'admin'
+    },
+
+    navigateToEditLocation(locationId) {
+      // URL + query/request parameter example
+      // router.push({name: 'locationRoute', query: {locationId: locationId}})
+
+      // URL + Path variable
+      router.push({name: 'locationRoute', params: {locationId: locationId}})
+    },
+
   },
   beforeMount() {
     this.sendGetAtmLocationsRequest()
+    this.updateIsAdminValue()
   }
 }
 </script>

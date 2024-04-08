@@ -21,9 +21,11 @@ const routes = [
     component: AtmsView
   },
   {
-    path: '/location',
+    path: '/location/:locationId',
     name: 'locationRoute',
-    component: LocationView
+    component: LocationView,
+    // URL + Path variable
+    props: true
   }
 ]
 
