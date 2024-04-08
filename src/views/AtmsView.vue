@@ -55,6 +55,19 @@ export default {
       this.successMessage = ''
     },
 
+    handleSessionStorageSuccessMessageAlert() {
+      const successMessage = sessionStorage.getItem('successMessage')
+      if (successMessage !== null) {
+        this.successMessage = successMessage
+        sessionStorage.removeItem('successMessage')
+        setTimeout(this.resetSuccessMessage ,4000)
+      }
+    },
+
+
+  },
+  beforeMount() {
+    this.handleSessionStorageSuccessMessageAlert()
   }
 }
 </script>

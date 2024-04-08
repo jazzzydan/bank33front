@@ -26,7 +26,7 @@
             {{ transactionType.transactionTypeName }}
           </p>
         </td>
-        <td v-if="isAdmin"> {{ atm.locationId }} -
+        <td v-if="isAdmin">
           <font-awesome-icon @click="navigateToEditLocation(atm.locationId)" class="link-warning cursor-pointer"
                              :icon="['far', 'pen-to-square']"/>
         </td>

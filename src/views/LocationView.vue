@@ -22,7 +22,8 @@
     <div class="row justify-content-center">
       <div class="col col-2 text-nowrap">
         <button @click="navigateToAtmsView" type="button" class="btn btn-outline-secondary m-1">Tagasi</button>
-        <button @click="addAtmLocation" type="button" class="btn btn-outline-success m-1">Lisa</button>
+        <button v-if="isEdit" @click="updateAtmLocation" type="button" class="btn btn-outline-success m-1">Salvesta</button>
+        <button v-else @click="addAtmLocation" type="button" class="btn btn-outline-success m-1">Lisa</button>
       </div>
     </div>
   </div>
@@ -81,17 +82,30 @@ export default {
     }
   },
   methods: {
-    setImageData(imageData) {
-      this.atmLocation.imageData = imageData
-    },
-
-    setCityId(selectedCityId) {
-      this.atmLocation.cityId = selectedCityId
-    },
 
     navigateToAtmsView() {
       router.push({name: 'atmsRoute'})
     },
+
+    updateAtmLocation() {
+      this.getAndSetAtmLocationValues()
+
+      if (this.allFieldsWithCorrectInput()) {
+        this.sendPutAtmLocationRequest()
+      } else {
+        this.errorMessage = 'Täida kõik väljad'
+        setTimeout(this.resetAlertMessages, 4000)
+      }
+    },
+
+    sendPutAtmLocationRequest() {
+      this.$http.put(`/atm/location/${this.locationId}`, this.atmLocation
+      ).then(() => {
+        sessionStorage.setItem('successMessage','Pangaautomaadi ' + this.atmLocation.locationName + ' asukoha infot on edukalt muudetud')
+        this.navigateToAtmsView()
+      }).catch(() => router.push({name: 'errorRoute'}))
+    },
+
 
     addAtmLocation() {
       this.getAndSetAtmLocationValues()
@@ -103,6 +117,16 @@ export default {
         setTimeout(this.resetAlertMessages, 4000)
       }
     },
+
+    setImageData(imageData) {
+      this.atmLocation.imageData = imageData
+    },
+
+    setCityId(selectedCityId) {
+      this.atmLocation.cityId = selectedCityId
+    },
+
+
 
     getAndSetAtmLocationValues() {
       this.atmLocation.locationName = this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName
@@ -181,24 +205,27 @@ export default {
     },
 
     async handleEditLocationPage() {
-        await this.sendGetAtmLocationRequest()
-        this.pageTitle = 'Muuda asukoha infot'
-        this.$refs.citiesDropdownRef.selectedCityId = this.atmLocation.cityId
-        this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName = this.atmLocation.locationName
-        this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms = this.atmLocation.numberOfAtms
-        await this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
-        this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.updateTransactionTypes(this.atmLocation.transactionTypes)
+      await this.sendGetAtmLocationRequest()
+      await this.setEditPageFormValues()
+      // todo: Kuva salvesta nuppu
+      // todo: Implementeeri updateLocation funktsionaalsus
+      //
+    },
 
-        // todo: Kuva salvesta nuppu
-        // todo: Implementeeri updateLocation funktsionaalsus
-        //
+    async setEditPageFormValues() {
+      this.pageTitle = 'Muuda asukoha infot'
+      this.$refs.citiesDropdownRef.selectedCityId = this.atmLocation.cityId
+      this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName = this.atmLocation.locationName
+      this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms = this.atmLocation.numberOfAtms
+      await this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
+      this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.updateTransactionTypes(this.atmLocation.transactionTypes)
+
     },
 
     handleAddLocationPage() {
       this.pageTitle = 'Lisa pangaautomaadi asukoht'
       this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
     },
-
 
 
     async sendGetAtmLocationRequest() {
@@ -222,6 +249,8 @@ export default {
         router.push({name: 'notAuthorizedRoute'})
       }
     },
+
+
 
 
   },
