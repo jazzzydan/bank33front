@@ -27,7 +27,7 @@ const routes = [
     component: NotAuthorizedView
   },
   {
-    path: '/location/:locationId',
+    path: '/location/:locationId?',
     name: 'locationRoute',
     component: LocationView,
     // URL + Path variable
