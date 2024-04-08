@@ -36,7 +36,7 @@ import LocationDetailsInput from "@/components/location/input/LocationDetailsInp
 
 import router from "@/router";
 import AtmImage from "@/components/image/AtmImage.vue";
-import {useRoute} from "vue-router";
+
 
 export default {
   name: 'LocationView',
@@ -176,7 +176,17 @@ export default {
       this.successMessage = ''
     },
 
+    validateAuthorizedAccess() {
+      const roleName = sessionStorage.getItem('roleName')
+      if (roleName !== 'admin') {
+        router.push({name: 'notAuthorizedRoute'})
+      }
+    },
 
+
+  },
+  beforeMount() {
+    this.validateAuthorizedAccess()
   }
 }
 </script>

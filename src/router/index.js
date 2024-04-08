@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import ErrorView from "@/views/ErrorView.vue";
 import AtmsView from "@/views/AtmsView.vue";
 import LocationView from "@/views/LocationView.vue";
+import NotAuthorizedView from "@/views/NotAuthorizedView.vue";
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/atms',
     name: 'atmsRoute',
     component: AtmsView
+  },
+  {
+    path: '/not-authorized',
+    name: 'notAuthorizedRoute',
+    component: NotAuthorizedView
   },
   {
     path: '/location/:locationId',
