@@ -191,7 +191,7 @@ export default {
         this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName = this.atmLocation.locationName
         this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms = this.atmLocation.numberOfAtms
 
-        this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
+        await this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
 
 
         this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.updateTransactionTypes(this.atmLocation.transactionTypes)
