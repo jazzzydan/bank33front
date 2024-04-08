@@ -37,9 +37,7 @@ export default {
     },
 
     updateTransactionTypes(incomingTransactionTypes) {
-      console.log('OLEN SIIN')
       for (const incomingTransactionType of incomingTransactionTypes) {
-
         for (const transactionType of this.transactionTypes) {
           if (incomingTransactionType.transactionTypeId === transactionType.transactionTypeId) {
             transactionType.isAvailable = true

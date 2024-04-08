@@ -55,7 +55,7 @@ export default {
       errorMessage: '',
       successMessage: '',
 
-      pageTitle: 'Lisa asukoht',
+      pageTitle: '',
 
       isEdit: false,
 
@@ -181,30 +181,28 @@ export default {
     },
 
     async handleEditLocationPage() {
-      this.updateIsEditValue()
-      if (this.isEdit) {
-        // todo: too andmed vastavalt locationId'le
         await this.sendGetAtmLocationRequest()
-        // todo: muuda heederid (Muuda asukoha infot)
         this.pageTitle = 'Muuda asukoha infot'
         this.$refs.citiesDropdownRef.selectedCityId = this.atmLocation.cityId
         this.$refs.locationDetailsInputRef.$refs.locationNameInputRef.locationName = this.atmLocation.locationName
         this.$refs.locationDetailsInputRef.$refs.numberOfAtmsInputRef.numberOfAtms = this.atmLocation.numberOfAtms
-
         await this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
-
-
         this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.updateTransactionTypes(this.atmLocation.transactionTypes)
 
         // todo: Kuva salvesta nuppu
         // todo: Implementeeri updateLocation funktsionaalsus
         //
-
-      }
     },
 
+    handleAddLocationPage() {
+      this.pageTitle = 'Lisa pangaautomaadi asukoht'
+      this.$refs.locationDetailsInputRef.$refs.transactionTypeCheckboxRef.sendGetTransactionTypesRequest()
+    },
+
+
+
     async sendGetAtmLocationRequest() {
-     await this.$http.get(`/atm/location/${this.locationId}`)
+      await this.$http.get(`/atm/location/${this.locationId}`)
           .then(response => {
             this.atmLocation = response.data
           })
@@ -227,13 +225,18 @@ export default {
 
 
   },
-  beforeMount() {
+  mounted() {
     this.validateAuthorizedAccess()
-    this.handleEditLocationPage()
+
+    this.updateIsEditValue()
+    if (this.isEdit) {
+      this.handleEditLocationPage();
+    } else {
+      this.handleAddLocationPage()
+    }
 
   },
-  mounted() {
-  }
+
 }
 </script>
 
