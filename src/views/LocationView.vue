@@ -4,7 +4,7 @@
       <div class="col col-5">
         <AlertDanger :message="errorMessage"/>
         <AlertSuccess :message="successMessage"/>
-        <h1>Lisa asukoht</h1>
+        <h1>{{ pageTitle }}</h1>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -54,6 +54,10 @@ export default {
       // locationId: useRoute().query.locationId,
       errorMessage: '',
       successMessage: '',
+
+      pageTitle: 'Lisa asukoht',
+
+      isEdit: false,
 
       atmLocation: {
         cityId: 0,
@@ -176,6 +180,37 @@ export default {
       this.successMessage = ''
     },
 
+    async handleEditLocationPage() {
+      this.updateIsEditValue()
+      if (this.isEdit) {
+        // todo: too andmed vastavalt locationId'le
+        await this.sendGetAtmLocationRequest()
+        // todo: muuda heederid (Muuda asukoha infot)
+        this.pageTitle = 'Muuda asukoha infot'
+        this.$refs.citiesDropdownRef.selectedCityId = this.atmLocation.cityId
+        // todo: täida vormi väljad vastavate andmetega
+        // todo: Kuva salvesta nuppu
+        // todo: Implementeeri updateLocation funktsionaalsus
+        //
+
+      }
+    },
+
+    async sendGetAtmLocationRequest() {
+     await this.$http.get(`/atm/location/${this.locationId}`)
+          .then(response => {
+            this.atmLocation = response.data
+          })
+          .catch(() => {
+            router.push({name: 'errorRoute'})
+          })
+    },
+
+
+    updateIsEditValue() {
+      this.isEdit = this.locationId !== ''
+    },
+
     validateAuthorizedAccess() {
       const roleName = sessionStorage.getItem('roleName')
       if (roleName !== 'admin') {
@@ -187,6 +222,10 @@ export default {
   },
   beforeMount() {
     this.validateAuthorizedAccess()
+    this.handleEditLocationPage()
+
+  },
+  mounted() {
   }
 }
 </script>
